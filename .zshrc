@@ -23,10 +23,6 @@ plugins=(
 
 source $ZSH/oh-my-zsh.sh
 
-# ZSH Mods
-source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 # Custom Sources
 for file in $ZSH_CUSTOM/sourced/*; do
    source "$file"
