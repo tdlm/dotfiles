@@ -17,13 +17,15 @@ As dotfiles get updated on each system, it's important to occasionally keep thos
 
 ## New System Setup
 
-**Installation Script**
+### Installation Script
 
-bash -c "\$(curl -fsSL https://gist.githubusercontent.com/tdlm/704f050e03e59c464ad9a6772bbe78c6/raw/setup.sh)"
+```bash
+bash -c "$(curl -fsSL https://gist.githubusercontent.com/tdlm/704f050e03e59c464ad9a6772bbe78c6/raw/setup.sh)"
+```
 
 Running this should install all dependencies/prerequisites, and pull in this dotfile repository on any new system.
 
-**Manual Update**
+### Manual Installation
 
 Confirm the `dotfiles` command is present on the system by running:
 
@@ -53,4 +55,12 @@ Now checkout the actual content into your `$HOME` directory:
 
 ```bash
 dotfiles checkout
+```
+
+This may fail if there are local versions of the files/folders you're attempting to check out. If that's the case, feel free to back these up or delete them before attempting to run the above command again.
+
+Now set the `showUntrackedFiles` flag to `no` for this repository:
+
+```bash
+dotfiles config --local status.showUntrackedFiles no
 ```
