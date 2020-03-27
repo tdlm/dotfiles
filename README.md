@@ -33,7 +33,7 @@ Confirm the `dotfiles` command is present on the system by running:
 $ command -v dotfiles
 ```
 
-If it's not present, run the followign alias or add it to your `.bashrc` or `.zshrc` config so that it's always available:
+If it's not present, run the following alias or add it to your `.bashrc` or `.zshrc` config so that it's always available:
 
 ```bash
 alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
@@ -64,3 +64,5 @@ Now set the `showUntrackedFiles` flag to `no` for this repository:
 ```bash
 dotfiles config --local status.showUntrackedFiles no
 ```
+
+You're done now.
