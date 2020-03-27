@@ -20,7 +20,7 @@ As dotfiles get updated on each system, it's important to occasionally keep thos
 ### Installation Script
 
 ```bash
-bash -c "$(curl -fsSL https://gist.githubusercontent.com/tdlm/704f050e03e59c464ad9a6772bbe78c6/raw/setup.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/tdlm/dotfiles/master/bin/setup-new-mac.sh)"
 ```
 
 Running this should install all dependencies/prerequisites, and pull in this dotfile repository on any new system.
