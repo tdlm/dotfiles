@@ -40,11 +40,11 @@ section_header "Introduction"
 echo "Scott's new Mac setup script."
 echo "Before we get started. Let's confirm some things..."
 
-read -p "Name? [Scott Weaver] " setup_name
+read -p "Name? [${ul}Scott Weaver${normal}] " setup_name
 setup_name=${setup_name:-Scott Weaver}
-read -p "Email? [scottmweaver@gmail.com] " setup_email
+read -p "Email? [${ul}scottmweaver@gmail.com${normal}] " setup_email
 setup_email=${setup_email:-scottmweaver@gmail.com}
-read -p "Github user? [tdlm] " setup_github_user
+read -p "Github user? [${ul}tdlm${normal}] " setup_github_user
 setup_github_user=${setup_github_user:-tdlm}
 
 # SSH Key
@@ -55,8 +55,8 @@ setup_create_ssh_key=${setup_create_ssh_key:-y}
 if [[ ${setup_create_ssh_key} == "yes" ]] ||  [[ ${setup_create_ssh_key} == "Y" ]] || [[ ${setup_create_ssh_key} == "y" ]]; then
   ssh-keygen -t rsa
 
-  echo "Please take the above output and add it to your GitHub/GitLab accounts.\n"
-  echo "https://github.com/settings/keys \n"
+  echo "Please take the above output and add it to your GitHub/GitLab accounts."
+  echo "https://github.com/settings/keys"
   read -p "Press [Enter] to continue when you're ready..."
 else
   echo "Skipping..."
@@ -89,23 +89,30 @@ brew update
 
 # Install and configure Git
 section_header "Install and configure Git"
-brew install git
+if command -v git &>/dev/null; then
+  echo "Git command found. Skipping..."
+else
+  echo "Git not found. Installing..."
+  brew install git
 
-echo "Set Git default config values..."
-git config --global user.name $setup_name
-git config --global user.email $setup_email
-git config --global alias.logline 'log --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit'
-git config --global alias.line '!git diff --numstat HEAD~ | awk '"'"'{a+=$1;next;}; END{print a;}'"'"''
+  echo "Set Git default config values..."
+  git config --global user.name $setup_name
+  git config --global user.email $setup_email
+  git config --global alias.logline 'log --graph --pretty=format:'"'"'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"'"' --abbrev-commit'
+  git config --global alias.line '!git diff --numstat HEAD~ | awk '"'"'{a+=$1;next;}; END{print a;}'"'"''
 
-echo "Install Brew Git utilities..."
-brew install git-extras
-brew install git-flow
+  echo "Installing Brew Git utilities..."
+  brew install git-extras
+  brew install git-flow
+fi
 
 # Create Required Directories
+section_header "Required Directories"
 echo "Create required directories..."
 mkdir -p ~/.nvm
 
 # Homebrew extras and clean-up
+section_header "Baseline Brew Apps"
 echo "Install Brew baseline apps..."
 brew_extras=(
     awscli
@@ -125,12 +132,20 @@ brew_extras=(
 )
 brew install ${brew_extras[@]}
 
+# Link kegs
+echo "Linking Brew kegs..."
+brew link --overwrite docker-compose
+brew link libimobiledevice
+brew link --overwrite php@7.2
+brew link --overwrite python
+
 # Dotfiles
 section_header "Dotfiles"
 
 read -p "Shall we run install Dotfiles? (${ul}Y${normal}|n)" setup_install_dotfiles
 setup_install_dotfiles=${setup_install_dotfiles:-y}
 if [[ ${setup_install_dotfiles} == "yes" ]] ||  [[ ${setup_install_dotfiles} == "Y" ]] || [[ ${setup_install_dotfiles} == "y" ]]; then
+  echo "Installing Dotfiles from repository..."
   cd ~
   git clone --recursive git@github.com:$setup_github_user/dotfiles.git .dotfiles
   alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
@@ -197,8 +212,9 @@ section_header "Install Applications"
 read -p "Shall we install applications? (${ul}Y${normal}|n)" setup_install_apps
 setup_install_apps=${setup_install_apps:-y}
 if [[ ${setup_install_apps} == "yes" ]] ||  [[ ${setup_install_apps} == "Y" ]] || [[ ${setup_install_apps} == "y" ]]; then
-  read -p "Where would you like to install applications? [~/Applications/] " setup_app_dir
+  read -p "Where would you like to install applications? [${ul}~/Applications/${normal}] " setup_app_dir
   setup_app_dir=${setup_app_dir:-~/Applications/}
+  echo "Installing applications to ${setup_app_dir}..."
 
   apps=(
       # Browsers
@@ -262,6 +278,7 @@ section_header "Install Mac App Store Applications"
 read -p "Shall we install App Store applications? (${ul}Y${normal}|n)" setup_install_macapps
 setup_install_macapps=${setup_install_macapps:-y}
 if [[ ${setup_install_macapps} == "yes" ]] ||  [[ ${setup_install_macapps} == "Y" ]] || [[ ${setup_install_macapps} == "y" ]]; then
+  echo "Installing App Store applications..."
   brew install mas
   mas_apps=(
       918207447 # Annotate - Capture and Share

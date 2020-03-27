@@ -45,7 +45,7 @@ if ([ $? -eq 0 ]) && ([[ -e $COLORLS_PATH/tab_complete.sh ]]); then
   source $COLORLS_PATH/tab_complete.sh
   alias l='colorls --group-directories-first --almost-all'
   alias ll='colorls --group-directories-first --almost-all --long'
-  alias ls='colorls' # 
+  alias ls='colorls'
 fi
 
 # Git extras
