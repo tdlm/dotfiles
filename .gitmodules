@@ -1,0 +1,6 @@
+[submodule "zsh_custom/plugins"]
+	path = zsh_custom/plugins
+	url = git@github.com:zsh-users/zsh-syntax-highlighting.git
+[submodule ".zsh_custom/plugins/zsh-syntax-highlighting"]
+	path = .zsh_custom/plugins/zsh-syntax-highlighting
+	url = git@github.com:zsh-users/zsh-syntax-highlighting.git
