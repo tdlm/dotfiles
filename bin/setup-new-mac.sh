@@ -23,6 +23,7 @@
 #   normal=$(tput sgr0)
 magenta=$(tput setaf 5)
 normal=$(tput sgr0)
+ul=$(tput smul)
 
 # =====
 # Display a colored "section" header
@@ -48,22 +49,35 @@ setup_github_user=${setup_github_user:-tdlm}
 
 # SSH Key
 section_header "SSH Key"
-echo "First, let's create an SSH key for you."
-ssh-keygen -t rsa
+read -p "Shall we generate an SSH key? (${ul}Y${normal}|n)" setup_create_ssh_key
+setup_create_ssh_key=${setup_create_ssh_key:-y}
 
-echo "Please take the above output and add it to your GitHub/GitLab accounts.\n"
-echo "https://github.com/settings/keys \n"
-read -p "Press [Enter] to continue when you're ready..."
+if [[ ${setup_create_ssh_key} == "yes" ]] ||  [[ ${setup_create_ssh_key} == "Y" ]] || [[ ${setup_create_ssh_key} == "y" ]]; then
+  ssh-keygen -t rsa
+
+  echo "Please take the above output and add it to your GitHub/GitLab accounts.\n"
+  echo "https://github.com/settings/keys \n"
+  read -p "Press [Enter] to continue when you're ready..."
+else
+  echo "Skipping..."
+fi
 
 # Install XCode
 section_header "XCode Install"
-echo "Setting up XCode..."
-xcode-select --install
+
+read -p "Shall we run XCode install? (${ul}Y${normal}|n)" setup_xcode_install
+setup_xcode_install=${setup_xcode_install:-y}
+if [[ ${setup_xcode_install} == "yes" ]] ||  [[ ${setup_xcode_install} == "Y" ]] || [[ ${setup_xcode_install} == "y" ]]; then
+  echo "Setting up XCode..."
+  xcode-select --install
+else
+  echo "Skipping..."
+fi
 
 # Install/Update Homebrew
 section_header "Homebrew"
 echo "Checking to see if we have Homebrew installed..."
-if command -v brew; then
+if command -v brew &>/dev/null; then
   echo "Homebrew installed. Skipping installation..."
 else
   echo "Homebrew not found. Installing..."
@@ -112,99 +126,151 @@ brew_extras=(
 brew install ${brew_extras[@]}
 
 # Dotfiles
-section_header "Install Dotfiles"
-cd ~
-git clone --recursive git@github.com:$setup_github_user/dotfiles.git .dotfiles
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
-dotfiles checkout
+section_header "Dotfiles"
+
+read -p "Shall we run install Dotfiles? (${ul}Y${normal}|n)" setup_install_dotfiles
+setup_install_dotfiles=${setup_install_dotfiles:-y}
+if [[ ${setup_install_dotfiles} == "yes" ]] ||  [[ ${setup_install_dotfiles} == "Y" ]] || [[ ${setup_install_dotfiles} == "y" ]]; then
+  cd ~
+  git clone --recursive git@github.com:$setup_github_user/dotfiles.git .dotfiles
+  alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+  dotfiles checkout
+else
+  echo "Skipping..."
+fi
 
 # Gulp
-section_header "Install Gulp"
-npm i -g gulp-cli
+section_header "Gulp"
+
+if command -v gulp &>/dev/null; then
+  echo "Gulp command found. Skipping..."
+else
+  echo "Gulp command not found. Installing..."
+  npm i -g gulp-cli
+fi
 
 # Pure Prompt
 section_header "Pure Prompt"
-npm i -g pure-prompt
+
+if npm list -g pure-prompt --depth=0 &>/dev/null; then
+  echo "Pure prompt found. Skipping..."
+else
+  echo "Pure prompt not found. Installing..."
+  npm i -g pure-prompt
+fi
 
 # ColorLS
 section_header "ColorLS"
-sudo gem install colorls
+
+echo "ColorLS most likely needs your password."
+
+if sudo gem list colorls | grep colorls &>/dev/null; then
+  echo "ColorLS found. Skipping..."
+else
+  echo "ColorLS not found. Installing..."
+  sudo gem install colorls
+fi
 
 # ZSH
-cd ~
 section_header "Install Oh My ZSH"
-sh -c .oh-my-zsh/tools/install.sh
 
-echo "Set ZSH as shell..."
-chsh -s /bin/zsh
+read -p "Shall we run install Oh My ZSH? (${ul}Y${normal}|n)" setup_install_ohmyzsh
+setup_install_ohmyzsh=${setup_install_ohmyzsh:-y}
+if [[ ${setup_install_ohmyzsh} == "yes" ]] ||  [[ ${setup_install_ohmyzsh} == "Y" ]] || [[ ${setup_install_ohmyzsh} == "y" ]]; then
+  echo "Running installer..."
+  cd ~
+  sh -c .oh-my-zsh/tools/install.sh
+else
+  echo "Skipping..."
+fi
+
+if echo $SHELL | grep -i zsh &>/dev/null; then
+  echo "ZSH already set as shell. Skipping..."
+else
+  echo "Setting ZSH as shell..."
+  chsh -s /bin/zsh
+fi
 
 # Applications
 section_header "Install Applications"
 
-read -p "Where would you like to install applications? [~/Applications/] " setup_app_dir
-setup_app_dir=${setup_app_dir:-~/Applications/}
+read -p "Shall we install applications? (${ul}Y${normal}|n)" setup_install_apps
+setup_install_apps=${setup_install_apps:-y}
+if [[ ${setup_install_apps} == "yes" ]] ||  [[ ${setup_install_apps} == "Y" ]] || [[ ${setup_install_apps} == "y" ]]; then
+  read -p "Where would you like to install applications? [~/Applications/] " setup_app_dir
+  setup_app_dir=${setup_app_dir:-~/Applications/}
 
-apps=(
-    # Browsers
-    brave-browser
-    firefox
-    google-chrome
-    microsoft-edge
+  apps=(
+      # Browsers
+      brave-browser
+      firefox
+      google-chrome
+      microsoft-edge
 
-    # Communications
-    discord
-    skype
-    skype-for-business
-    slack
-    telegram-desktop
-    zoomus
+      # Communications
+      discord
+      skype
+      skype-for-business
+      slack
+      telegram-desktop
+      zoomus
 
-    # Dev
-    cyberduck # File transfers (FileZilla is evil)
-    docker
-    gas-mask
-    iterm2
-    kitematic
-    jetbrains-toolbox
-    phpstorm
-    postman
-    sequel-pro
-    sourcetree
-    sublime-text
-    virtualbox
-    visual-studio-code
+      # Dev
+      cyberduck # File transfers (FileZilla is evil)
+      docker
+      gas-mask
+      iterm2
+      kitematic
+      jetbrains-toolbox
+      phpstorm
+      postman
+      sequel-pro
+      sourcetree
+      sublime-text
+      virtualbox
+      visual-studio-code
 
-    # Productivity
-    1password
-    1password-cli
-    alfred
-    bartender
-    blue-jeans
-    charles
-    rectangle
-    tripmode
-    toggl
+      # Productivity
+      1password
+      1password-cli
+      alfred
+      bartender
+      blue-jeans
+      charles
+      rectangle
+      tripmode
+      toggl
 
-    # Security
-    backblaze
-    malwarebytes
-    private-internet-access
+      # Security
+      backblaze
+      malwarebytes
+      private-internet-access
 
-    # Video
-    vlc
-)
-brew cask install --appdir=$setup_app_dir ${apps[@]}
+      # Video
+      vlc
+  )
+  brew cask install --appdir=$setup_app_dir ${apps[@]}
 
-brew cask alfred link
+  brew cask alfred link
+else
+  echo "Skipping..."
+fi
 
 # Mac App Store Apps
 section_header "Install Mac App Store Applications"
-brew install mas
-mas_apps=(
-    918207447 # Annotate - Capture and Share
-    409789998 # Twitter
-)
-mas install ${mas_apps[@]}
+
+read -p "Shall we install App Store applications? (${ul}Y${normal}|n)" setup_install_macapps
+setup_install_macapps=${setup_install_macapps:-y}
+if [[ ${setup_install_macapps} == "yes" ]] ||  [[ ${setup_install_macapps} == "Y" ]] || [[ ${setup_install_macapps} == "y" ]]; then
+  brew install mas
+  mas_apps=(
+      918207447 # Annotate - Capture and Share
+      409789998 # Twitter
+  )
+  mas install ${mas_apps[@]}
+else
+  echo "Skipping..."
+fi
 
 # Clean up
 section_header "Cleanup"
@@ -212,6 +278,7 @@ echo "Homebrew cleanup..."
 brew cleanup
 
 # Mac Preferences
+echo "Setting Mac preferences..."
 osascript -e 'tell application "System Events" to set the autohide of the dock preferences to true'
 
 echo "✨ Done ✨"

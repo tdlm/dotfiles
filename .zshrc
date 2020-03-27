@@ -48,6 +48,9 @@ if ([ $? -eq 0 ]) && ([[ -e $COLORLS_PATH/tab_complete.sh ]]); then
   alias ls='colorls' # 
 fi
 
+# Git extras
+source /usr/local/opt/git-extras/share/git-extras/git-extras-completion.zsh
+
 # NVM-specific stuffs
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
