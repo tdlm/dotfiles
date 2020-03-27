@@ -214,4 +214,4 @@ brew cleanup
 # Mac Preferences
 osascript -e 'tell application "System Events" to set the autohide of the dock preferences to true'
 
-echo "Done"
+echo "✨ Done ✨"
