@@ -63,13 +63,18 @@ else
 fi
 
 # Install XCode
-section_header "XCode Install"
+section_header "XCode Command Line Tools"
 
 read -p "Shall we run XCode install? (${ul}Y${normal}|n)" setup_xcode_install
 setup_xcode_install=${setup_xcode_install:-y}
 if [[ ${setup_xcode_install} == "yes" ]] ||  [[ ${setup_xcode_install} == "Y" ]] || [[ ${setup_xcode_install} == "y" ]]; then
-  echo "Setting up XCode..."
-  xcode-select --install
+  echo "Setting up XCode command line tools..."
+  if xcode-select -p &>/dev/null; then
+    echo "XCode command line tools already installed! Skipping..."
+  else
+    echo "XCode command line tools not found. Installing..."
+    xcode-select --install
+  fi
 else
   echo "Skipping..."
 fi
@@ -289,13 +294,19 @@ else
   echo "Skipping..."
 fi
 
+# Mac Preferences
+section_header "Set Mac Preferences"
+echo "Set Dock autohide..."
+osascript -e 'tell application "System Events" to set the autohide of the dock preferences to true'
+
 # Clean up
 section_header "Cleanup"
 echo "Homebrew cleanup..."
 brew cleanup
 
-# Mac Preferences
-echo "Setting Mac preferences..."
-osascript -e 'tell application "System Events" to set the autohide of the dock preferences to true'
+# One More Thing
+section_header "One More Thing..."
+echo "Just in case, let's run brew doctor to see if there's anything needing to be addressed..."
+brew doctor
 
 echo "✨ Done ✨"
