@@ -21,8 +21,9 @@
 #   white=$(tput setaf 7)
 #   dim=$(tput setaf 8)
 #   normal=$(tput sgr0)
-magenta=$(tput setaf 5)
 normal=$(tput sgr0)
+blue=$(tput setaf 4)
+magenta=$(tput setaf 5)
 ul=$(tput smul)
 
 # =====
@@ -56,7 +57,8 @@ if [[ ${setup_create_ssh_key} == "yes" ]] ||  [[ ${setup_create_ssh_key} == "Y" 
   ssh-keygen -t rsa
 
   echo "Please take the above output and add it to your GitHub/GitLab accounts."
-  echo "https://github.com/settings/keys"
+  echo "${blue}${ul}https://github.com/settings/keys${normal}"
+  echo "${blue}${ul}https://gitlab.com/profile/keys${normal}"
   read -p "Press [Enter] to continue when you're ready..."
 else
   echo "Skipping..."
@@ -120,20 +122,22 @@ mkdir -p ~/.nvm
 section_header "Baseline Brew Apps"
 echo "Install Brew baseline apps..."
 brew_extras=(
-    awscli
-    awslogs
-    composer
-    docker-compose
-    figlet
-    jq
-    node
-    nvm
-    php
-    ruby
-    svn
-    tree
-    wget
-    zsh
+    awscli          # Official Amazon AWS command-line interface.
+    awslogs         # awslogs is a simple command line tool for querying Amazon CloudWatch logs.
+    composer        # Dependency manager for PHP.
+    docker-compose  # Isolated dev environments using Docker.
+    fd              # Simple, fast and user-friendly alternative to find.
+    figlet          # FIGlet is a program for making large letters out of ordinary text.
+    jq              # jq is a lightweight and flexible command-line JSON processor.
+    node            # Node.js. A platform built on V8 for network applications.
+    nvm             # Manage multiple Node.js versions.
+    php             # PHP.
+    python          # Python.
+    ruby            # Ruby.
+    tldr            # Simplified and community-driven man pages.
+    tree            # Display directory trees.
+    wget            # Internet file retriever (curl alternative).
+    zsh             # UNIX Shell. Way better than Bash.
 )
 brew install ${brew_extras[@]}
 
