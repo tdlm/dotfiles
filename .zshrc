@@ -13,12 +13,12 @@ HOMEBREW_CASK_OPTS="--appdir=~/Applications" # brew cask directory
 
 # Enable plugins.
 plugins=(
-  brew
-  git
-  git-flow
-  scott-wp-cli
-  ssh-agent
-  z
+  brew            # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/brew
+  git             # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
+  git-flow        # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git-flow
+  scott-wp-cli    # My custom WP-CLI stuff.
+  ssh-agent       # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/ssh-agent
+  z               # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/z
 )
 
 source $ZSH/oh-my-zsh.sh
