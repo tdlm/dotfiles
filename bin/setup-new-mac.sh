@@ -114,9 +114,8 @@ else
 fi
 
 # Create Required Directories
-section_header "Required Directories"
-echo "Create required directories..."
-mkdir -p ~/.nvm
+# section_header "Required Directories"
+# echo "Create required directories..."
 
 # Homebrew extras and clean-up
 section_header "Baseline Brew Apps"
@@ -130,7 +129,6 @@ brew_extras=(
     figlet          # FIGlet is a program for making large letters out of ordinary text.
     jq              # jq is a lightweight and flexible command-line JSON processor.
     node            # Node.js. A platform built on V8 for network applications.
-    nvm             # Manage multiple Node.js versions.
     php             # PHP.
     python          # Python.
     ruby            # Ruby.
@@ -156,7 +154,7 @@ setup_install_dotfiles=${setup_install_dotfiles:-y}
 if [[ ${setup_install_dotfiles} == "yes" ]] ||  [[ ${setup_install_dotfiles} == "Y" ]] || [[ ${setup_install_dotfiles} == "y" ]]; then
   echo "Installing Dotfiles from repository..."
   cd ~
-  git clone --recursive git@github.com:$setup_github_user/dotfiles.git .dotfiles
+  git clone --bare --recursive git@github.com:$setup_github_user/dotfiles.git .dotfiles
   alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
   dotfiles checkout
 else
