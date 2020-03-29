@@ -296,10 +296,19 @@ else
   echo "Skipping..."
 fi
 
+# Set Vim up
+section_header "VI/VIM Setup"
+curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
 # Mac Preferences
 section_header "Set Mac Preferences"
 echo "Set Dock autohide..."
 osascript -e 'tell application "System Events" to set the autohide of the dock preferences to true'
+
+# Init Submodules
+section_header "Git Submodules"
+dotfiles submodule update --init
 
 # Clean up
 section_header "Cleanup"
