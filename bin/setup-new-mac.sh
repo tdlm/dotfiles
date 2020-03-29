@@ -30,7 +30,14 @@ ul=$(tput smul)
 # Display a colored "section" header
 # =====
 section_header() {
-    printf "%s\n" "" "${magenta}===${normal} $1 ${magenta}===${normal}" ""
+  printf "%s\n" "" "${magenta}===${normal} $1 ${magenta}===${normal}" ""
+}
+
+# =====
+# Add dotfiles function
+# =====
+function dotfiles {
+  /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
 }
 
 # =====
@@ -155,7 +162,7 @@ if [[ ${setup_install_dotfiles} == "yes" ]] ||  [[ ${setup_install_dotfiles} == 
   echo "Installing Dotfiles from repository..."
   cd ~
   git clone --bare --recursive git@github.com:$setup_github_user/dotfiles.git .dotfiles
-  alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
+
   dotfiles checkout
 else
   echo "Skipping..."

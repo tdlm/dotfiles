@@ -1,6 +1,5 @@
 # Config & Development
 
-alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME'
 alias gitbranch="git rev-parse --abbrev-ref HEAD"
 alias phpstorm='open -a PhpStorm'
 alias storm='phpstorm'
