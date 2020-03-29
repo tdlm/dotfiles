@@ -4,3 +4,15 @@
 [submodule ".oh-my-zsh"]
 	path = .oh-my-zsh
 	url = git@github.com:ohmyzsh/ohmyzsh.git
+[submodule ".vim/plugged/bufexplorer"]
+	path = .vim/plugged/bufexplorer
+	url = git@github.com:jlanzarotta/bufexplorer.git
+[submodule ".vim/plugged/fzf.vim"]
+	path = .vim/plugged/fzf.vim
+	url = git@github.com:junegunn/fzf.vim.git
+[submodule ".vim/plugged/vim-bufferline"]
+	path = .vim/plugged/vim-bufferline
+	url = git@github.com:bling/vim-bufferline.git
+[submodule ".vim/plugged/vim-surround"]
+	path = .vim/plugged/vim-surround
+	url = git@github.com:tpope/vim-surround.git
