@@ -136,7 +136,8 @@ brew_extras=(
     figlet          # FIGlet is a program for making large letters out of ordinary text.
     jq              # jq is a lightweight and flexible command-line JSON processor.
     node            # Node.js. A platform built on V8 for network applications.
-    php             # PHP.
+    php             # PHP (Latest).
+    php@7.2         # PHP (7.2).
     python          # Python.
     ruby            # Ruby.
     tldr            # Simplified and community-driven man pages.
