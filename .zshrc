@@ -16,7 +16,6 @@ plugins=(
   brew            # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/brew
   git             # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
   git-flow        # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git-flow
-  scott-wp-cli    # My custom WP-CLI stuff.
   ssh-agent       # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/ssh-agent
   z               # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/z
 )

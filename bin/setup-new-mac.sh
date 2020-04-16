@@ -12,20 +12,7 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 source $SCRIPT_DIR/common/colors.sh
-
-# =====
-# Display a colored "section" header
-# =====
-section_header() {
-  printf "%s\n" "" "${magenta}===${normal} $1 ${magenta}===${normal}" ""
-}
-
-# =====
-# Add dotfiles function
-# =====
-dotfiles() {
-  /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
-}
+source $SCRIPT_DIR/common/functions.sh
 
 # =====
 # Main installation script
