@@ -15,3 +15,4 @@ PATH=/usr/local/opt/php@7.2/sbin:$PATH
 PATH=/usr/local/opt/php@7.2/bin:$PATH
 PATH=/usr/local/opt/python/bin:$PATH
 PATH=/usr/local/opt/ruby/bin:$PATH
+PATH=$HOME/go/bin:$PATH

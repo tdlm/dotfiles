@@ -9,22 +9,9 @@
 #    \/_/ \/_/\/__/\/_/\/____/     \/_____/\/____/ \/__/ \/___/  \ \ \/
 #                                                                 \ \_\
 #                                                                  \/_/
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
-# Colors available:
-#   black=$(tput setaf 0)
-#   red=$(tput setaf 1)
-#   green=$(tput setaf 2)
-#   yellow=$(tput setaf 3)
-#   blue=$(tput setaf 4)
-#   magenta=$(tput setaf 5)
-#   cyan=$(tput setaf 6)
-#   white=$(tput setaf 7)
-#   dim=$(tput setaf 8)
-#   normal=$(tput sgr0)
-normal=$(tput sgr0)
-blue=$(tput setaf 4)
-magenta=$(tput setaf 5)
-ul=$(tput smul)
+source $SCRIPT_DIR/common/colors.sh
 
 # =====
 # Display a colored "section" header
@@ -36,14 +23,13 @@ section_header() {
 # =====
 # Add dotfiles function
 # =====
-function dotfiles {
+dotfiles() {
   /usr/bin/git --git-dir=$HOME/.dotfiles/ --work-tree=$HOME $@
 }
 
 # =====
 # Main installation script
 # =====
-
 section_header "Introduction"
 echo "Scott's new Mac setup script."
 echo "Before we get started. Let's confirm some things..."
@@ -71,12 +57,22 @@ else
   echo "Skipping..."
 fi
 
-# Install XCode
-section_header "XCode Command Line Tools"
+
+# XCode
+section_header "XCode"
 
 read -p "Shall we run XCode install? (${ul}Y${normal}|n)" setup_xcode_install
 setup_xcode_install=${setup_xcode_install:-y}
 if [[ ${setup_xcode_install} == "yes" ]] ||  [[ ${setup_xcode_install} == "Y" ]] || [[ ${setup_xcode_install} == "y" ]]; then
+  echo "Setting up XCode. This may require your password..."
+  sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+else
+  echo "Skipping..."
+fi
+
+read -p "Shall we install XCode command line tools? (${ul}Y${normal}|n)" setup_xcode_cli_install
+setup_xcode_cli_install=${setup_xcode_cli_install:-y}
+if [[ ${setup_xcode_cli_install} == "yes" ]] ||  [[ ${setup_xcode_cli_install} == "Y" ]] || [[ ${setup_xcode_install} == "y" ]]; then
   echo "Setting up XCode command line tools..."
   if xcode-select -p &>/dev/null; then
     echo "XCode command line tools already installed! Skipping..."
@@ -134,6 +130,7 @@ brew_extras=(
     docker-compose  # Isolated dev environments using Docker.
     fd              # Simple, fast and user-friendly alternative to find.
     figlet          # FIGlet is a program for making large letters out of ordinary text.
+    go              # Golang (Open source programming language).
     jq              # jq is a lightweight and flexible command-line JSON processor.
     node            # Node.js. A platform built on V8 for network applications.
     php             # PHP (Latest).
@@ -142,6 +139,7 @@ brew_extras=(
     ruby            # Ruby.
     tldr            # Simplified and community-driven man pages.
     tree            # Display directory trees.
+    watchman        # Watch files and take action when they change.
     wget            # Internet file retriever (curl alternative).
     zsh             # UNIX Shell. Way better than Bash.
 )
@@ -201,6 +199,17 @@ else
   sudo gem install colorls
 fi
 
+# CocoaPods (Dependency manager for Swift/Objective-C)
+section_header "CocoaPods"
+
+echo "CocoaPods most likely needs your password."
+
+if sudo gem list cocoapods | grep cocoapods &>/dev/null; then
+  echo "CocoaPods found. Skipping..."
+else
+  echo "CocoaPods not found. Installing..."
+  sudo gem install -n /usr/local/bin cocoapods
+fi
 # ZSH
 section_header "Install Oh My ZSH"
 
@@ -269,8 +278,8 @@ if [[ ${setup_install_apps} == "yes" ]] ||  [[ ${setup_install_apps} == "Y" ]] |
       blue-jeans
       charles
       rectangle
+      timing
       tripmode
-      toggl
 
       # Security
       backblaze
