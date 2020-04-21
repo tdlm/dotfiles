@@ -49,7 +49,7 @@ section_header "Homebrew"
 install_and_configure_homebrew
 
 # Install and configure Git
-section_header "Install and configure Git"
+section_header "Git"
 install_and_configure_git
 
 # Homebrew extras and clean-up
@@ -82,11 +82,11 @@ install_cocoapods
 # install_ohmyzsh - Disabling for now since submodules should handle this.
 
 # Applications
-section_header "Install Applications"
+section_header "Applications"
 install_mac_apps
 
 # Mac App Store Apps
-section_header "Install Mac App Store Applications"
+section_header "Mac App Store Applications"
 install_mac_store_apps
 
 # Set Vim up
@@ -94,7 +94,7 @@ section_header "VI/VIM Setup"
 set_vim_up
 
 # Mac Preferences
-section_header "Set Mac Preferences"
+section_header "Mac Preferences"
 set_mac_preferences
 
 # Clean up

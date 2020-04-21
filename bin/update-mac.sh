@@ -53,8 +53,12 @@ update_dotfile_submodules
 # update_ohmyzsh - Disabling for now since updating submodules should take care of this.
 
 # Applications
-section_header "Update Applications"
+section_header "Applications"
 update_mac_apps
+
+# Mac App Store Apps
+section_header "Mac App Store Applications"
+update_mac_store_apps
 
 # Mac Preferences
 section_header "Set Mac Preferences"

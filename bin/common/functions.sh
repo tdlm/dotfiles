@@ -1,51 +1,64 @@
 cask_apps=(
     # Browsers
-    brave-browser
-    firefox
-    google-chrome
-    microsoft-edge
+    brave-browser                   # Brave is so brave.
+    firefox                         # Firefox.
+    google-chrome                   # Google Chrome browser.
+    microsoft-edge                  # Microsoft Edge browser. By Microsoft.
 
     # Communications
-    discord
-    skype
-    skype-for-business
-    slack
-    telegram-desktop
-    zoomus
+    discord                         # Freeware chat/VoIP app, primarily for video game communities.
+    franz                           # Messaging container for other chat apps.
+    skype                           # Do people still use Skype?
+    slack                           # Communications platform.
+    telegram-desktop                # Secure instant messaging.
+    whatsapp                        # Simple, secure messaging with free phone calling.
+    zoomus                          # Video conferencing software.
 
     # Dev
-    cyberduck # File transfers (FileZilla is evil)
-    docker
-    gas-mask
-    iterm2
-    kitematic
-    jetbrains-toolbox
-    phpstorm
-    postman
-    sequel-pro
-    sourcetree
-    sublime-text
-    virtualbox
-    visual-studio-code
+    cyberduck                       # File transfers (FileZilla is evil)
+    docker                          # OS-level virtualization for containers.
+    gas-mask                        # Hosts file manager.
+    iterm2                          # The best terminal software for Mac.
+    kitematic                       # Docker GUI.
+    "local"                         # WordPress development tool.
+    jetbrains-toolbox               # JetBrains tools manager (mainly for PHPStorm).
+    phpstorm                        # The best PHP IDE there is.
+    postman                         # API interaction tool.
+    sequel-pro                      # The best database management tool.
+    sourcetree                      # Git GUI.
+    sublime-text                    # Sublime Text is a cross-platform source code editor with a Python.
+    trailer                         # Github workflow menubar app.
+    virtualbox                      # Free/open-source hosted hypervisor for x86 virtualization by Oracle.
+    visual-studio-code              # Source code editor developed by Microsoft.
 
     # Productivity
-    1password
-    1password-cli
-    alfred
-    bartender
-    blue-jeans
-    charles
-    rectangle
-    timing
-    tripmode
+    1password                       # Digital password manager and vault.
+    1password-cli                   # Command line tool for 1Password.
+    alfred                          # Spotlight replacement and productivity tool.
+    bartender                       # Organize your menu bar icons (NOTE: Dozer is a free alternative).
+    charles                         # HTTP proxy monitor. See all the traffic.
+    # rectangle                       # Move/resize windows. Based on Spectacle / written in Swift.
+    spectacle                       # Move/resize windows.
+    timing                          # Automatic time tracking.
+    tripmode                        # Controls which apps can access Internet connection.
+
+    # Misc
+    bitbar                          # Put the output from any script/program in your Mac OS X Menu Bar.
+    gfxcardstatus                   # Menu bar app to visualize current GPU and memory hogs.
+    google-photos-backup-and-sync   # Google Photos backup and sync manager.
+    horos                           # Free, open medical image viewer.
+    minecraft                       # Minecraft game. Sometimes I need a mental break.
+    omnidisksweeper                 # Quickly find large, unwanted files and destroy them (manually).
+    steam                           # Steam gaming platform.
+    transmission                    # Free, open torrent client.
 
     # Security
-    backblaze
-    malwarebytes
-    private-internet-access
+    backblaze                       # Backup software.
+    malwarebytes                    # Anti-virus.
+    private-internet-access         # VPN software.
 
     # Video
-    vlc
+    vlc                             # Free, open cross-platform media player.
 )
 
 mac_store_apps=(
@@ -348,8 +361,8 @@ function install_mac_apps() {
     read -p "Shall we install applications? (${ul}Y${normal}|n)" setup_install_apps
     setup_install_apps=${setup_install_apps:-y}
     if [[ ${setup_install_apps} == "yes" ]] ||  [[ ${setup_install_apps} == "Y" ]] || [[ ${setup_install_apps} == "y" ]]; then
-        read -p "Where would you like to install applications? [${ul}~/Applications/${normal}] " setup_app_dir
-        setup_app_dir=${setup_app_dir:-~/Applications/}
+        read -p "Where would you like to install applications? [${ul}/Applications/${normal}] " setup_app_dir
+        setup_app_dir=${setup_app_dir:-/Applications/}
         echo "Installing applications to ${setup_app_dir}..."
 
         brew cask install --appdir=$setup_app_dir ${cask_apps[@]}
@@ -367,8 +380,8 @@ function update_mac_apps() {
     read -p "Shall we update applications? (${ul}Y${normal}|n)" setup_update_apps
     setup_update_apps=${setup_update_apps:-y}
     if [[ ${setup_update_apps} == "yes" ]] ||  [[ ${setup_update_apps} == "Y" ]] || [[ ${setup_update_apps} == "y" ]]; then
-        read -p "Where would you like to install applications? [${ul}~/Applications/${normal}] " setup_app_dir
-        setup_app_dir=${setup_app_dir:-~/Applications/}
+        read -p "Where would you like to install applications? [${ul}/Applications/${normal}] " setup_app_dir
+        setup_app_dir=${setup_app_dir:-/Applications/}
         echo "Installing applications to ${setup_app_dir}..."
 
         brew cask install --appdir=$setup_app_dir ${cask_apps[@]}
@@ -401,11 +414,11 @@ function install_mac_store_apps() {
 # 
 # NOTE: These must have already been installed/purchased.
 # =====
-function install_mac_store_apps() {
+function update_mac_store_apps() {
     read -p "Shall we update App Store applications? (${ul}Y${normal}|n)" setup_update_macapps
     setup_update_macapps=${setup_update_macapps:-y}
     if [[ ${setup_update_macapps} == "yes" ]] ||  [[ ${setup_update_macapps} == "Y" ]] || [[ ${setup_update_macapps} == "y" ]]; then
-        echo "Installing App Store applications..."
+        echo "Installing and upgrading App Store applications..."
         mas install ${mac_store_apps[@]}
         mas upgrade
     else
@@ -417,8 +430,14 @@ function install_mac_store_apps() {
 # Set Mac preferences
 # =====
 function set_mac_preferences() {
+    echo "Disable Dashboard..."
+    defaults write com.apple.dashboard mcx-disabled -boolean YES
+
     echo "Set Dock autohide..."
     osascript -e 'tell application "System Events" to set the autohide of the dock preferences to true'
+
+    echo "Restarting Dock..."
+    killall Dock
 }
 
 # =====

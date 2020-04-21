@@ -17,15 +17,7 @@ As dotfiles get updated on each system, it's important to occasionally keep thos
 
 ## New System Setup
 
-### Installation Script
-
-```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/tdlm/dotfiles/master/bin/setup-new-mac.sh)"
-```
-
-Running this should install all dependencies/prerequisites, and pull in this dotfile repository on any new system.
-
-### Manual Installation
+### Installation
 
 Confirm the `dotfiles` command is present on the system by running:
 
@@ -65,4 +57,4 @@ Now set the `showUntrackedFiles` flag to `no` for this repository:
 dotfiles config --local status.showUntrackedFiles no
 ```
 
-You're done now.
+✨ You're done now. ✨
