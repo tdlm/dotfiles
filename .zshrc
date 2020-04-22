@@ -1,4 +1,4 @@
-#.zshrc
+#.zShrc
 # Read when interactive. You set options for the interactive shell there with the setopt
 # and unsetopt commands. You can also load shell modules, set your history options,
 # change your prompt, set up zle and completion, et cetera. You also set any variables
@@ -9,13 +9,12 @@
 export ZSH=$HOME/.oh-my-zsh # Path to your oh-my-zsh installation.
 DEFAULT_USER=scott
 ZSH_CUSTOM=$HOME/.zsh_custom
-HOMEBREW_CASK_OPTS="--appdir=~/Applications" # brew cask directory
+HOMEBREW_CASK_OPTS="--appdir=/Applications" # brew cask directory
 
 # Enable plugins.
 plugins=(
   brew            # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/brew
   git             # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git
-  git-flow        # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/git-flow
   ssh-agent       # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/ssh-agent
   z               # https://github.com/ohmyzsh/ohmyzsh/tree/master/plugins/z
 )
