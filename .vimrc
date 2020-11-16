@@ -1,9 +1,5 @@
 syntax enable
 
-" Turn both relative number and number on.
-set relativenumber
-set number
-
 " Enable mouse usage and scrolling.
 set mouse=a
 if has("mouse_sgr")
