@@ -70,10 +70,10 @@ brew_apps=(
     fd              # Simple, fast and user-friendly alternative to find.
     figlet          # FIGlet is a program for making large letters out of ordinary text.
     go              # Golang (Open source programming language).
-    java-sdk        # Java Software Development Kit (for running things like Minecraft)
     jq              # jq is a lightweight and flexible command-line JSON processor.
     mas             # Mac App Store command-line interface.
     node            # Node.js. A platform built on V8 for network applications.
+    oracle-sdk      # Java Software Development Kit (for running things like Minecraft)
     php             # PHP (Latest).
     php@7.2         # PHP (7.2).
     python          # Python.
@@ -384,7 +384,7 @@ function update_mac_apps() {
         brew cask install --appdir=$setup_app_dir ${cask_apps[@]}
 
         echo "Updating out of date casks..."
-        brew cask upgrade
+        brew upgrade --cask
     else
         echo "Skipping..."
     fi
