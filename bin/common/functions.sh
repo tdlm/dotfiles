@@ -7,8 +7,6 @@ cask_apps=(
 
     # Communications
     discord                         # Freeware chat/VoIP app, primarily for video game communities.
-    franz                           # Messaging container for other chat apps.
-    skype                           # Do people still use Skype?
     slack                           # Communications platform.
     telegram-desktop                # Secure instant messaging.
     whatsapp                        # Simple, secure messaging with free phone calling.
@@ -25,10 +23,8 @@ cask_apps=(
     phpstorm                        # The best PHP IDE there is.
     postman                         # API interaction tool.
     sequel-pro                      # The best database management tool.
-    sourcetree                      # Git GUI.
     sublime-text                    # Sublime Text is a cross-platform source code editor with a Python.
     trailer                         # Github workflow menubar app.
-    virtualbox                      # Free/open-source hosted hypervisor for x86 virtualization by Oracle.
     visual-studio-code              # Source code editor developed by Microsoft.
 
     # Productivity
@@ -62,7 +58,7 @@ cask_apps=(
 )
 
 mac_store_apps=(
-    918207447 # Annotate - Capture and Share
+    # 918207447 # Annotate - Capture and Share
     409789998 # Twitter
 )
 
@@ -74,6 +70,7 @@ brew_apps=(
     fd              # Simple, fast and user-friendly alternative to find.
     figlet          # FIGlet is a program for making large letters out of ordinary text.
     go              # Golang (Open source programming language).
+    java-sdk        # Java Software Development Kit (for running things like Minecraft)
     jq              # jq is a lightweight and flexible command-line JSON processor.
     mas             # Mac App Store command-line interface.
     node            # Node.js. A platform built on V8 for network applications.
