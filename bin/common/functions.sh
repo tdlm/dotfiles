@@ -1,16 +1,12 @@
 cask_apps=(
     # Browsers
-    brave-browser                   # Brave is so brave.
     firefox                         # Firefox.
     google-chrome                   # Google Chrome browser.
     microsoft-edge                  # Microsoft Edge browser. By Microsoft.
 
     # Communications
-    discord                         # Freeware chat/VoIP app, primarily for video game communities.
     slack                           # Communications platform.
-    telegram-desktop                # Secure instant messaging.
-    whatsapp                        # Simple, secure messaging with free phone calling.
-    zoomus                          # Video conferencing software.
+    zoom                            # Video conferencing software.
 
     # Dev
     cyberduck                       # File transfers (FileZilla is evil)
@@ -20,9 +16,7 @@ cask_apps=(
     kitematic                       # Docker GUI.
     "local"                         # WordPress development tool.
     jetbrains-toolbox               # JetBrains tools manager (mainly for PHPStorm).
-    phpstorm                        # The best PHP IDE there is.
     postman                         # API interaction tool.
-    sequel-pro                      # The best database management tool.
     sublime-text                    # Sublime Text is a cross-platform source code editor with a Python.
     trailer                         # Github workflow menubar app.
     visual-studio-code              # Source code editor developed by Microsoft.
@@ -31,35 +25,15 @@ cask_apps=(
     1password                       # Digital password manager and vault.
     1password-cli                   # Command line tool for 1Password.
     alfred                          # Spotlight replacement and productivity tool.
-    bartender                       # Organize your menu bar icons (NOTE: Dozer is a free alternative).
     charles                         # HTTP proxy monitor. See all the traffic.
     # rectangle                       # Move/resize windows. Based on Spectacle / written in Swift.
     spectacle                       # Move/resize windows.
-    timing                          # Automatic time tracking.
     tripmode                        # Controls which apps can access Internet connection.
-
-    # Misc
-    bitbar                          # Put the output from any script/program in your Mac OS X Menu Bar.
-    gfxcardstatus                   # Menu bar app to visualize current GPU and memory hogs.
-    google-photos-backup-and-sync   # Google Photos backup and sync manager.
-    horos                           # Free, open medical image viewer.
-    minecraft                       # Minecraft game. Sometimes I need a mental break.
-    omnidisksweeper                 # Quickly find large, unwanted files and destroy them (manually).
-    steam                           # Steam gaming platform.
-    transmission                    # Free, open torrent client.
-
-    # Security
-    backblaze                       # Backup software.
-    malwarebytes                    # Anti-virus.
-    private-internet-access         # VPN software.
-
-    # Video
-    vlc                             # Free, open cross-platform media player.
 )
 
 mac_store_apps=(
     # 918207447 # Annotate - Capture and Share
-    409789998 # Twitter
+    # 409789998 # Twitter
 )
 
 brew_apps=(
@@ -73,9 +47,8 @@ brew_apps=(
     jq              # jq is a lightweight and flexible command-line JSON processor.
     mas             # Mac App Store command-line interface.
     node            # Node.js. A platform built on V8 for network applications.
-    oracle-sdk      # Java Software Development Kit (for running things like Minecraft)
     php             # PHP (Latest).
-    php@7.2         # PHP (7.2).
+    php@8.0         # PHP (7.2).
     python          # Python.
     ruby            # Ruby.
     tldr            # Simplified and community-driven man pages.
@@ -362,9 +335,9 @@ function install_mac_apps() {
         setup_app_dir=${setup_app_dir:-/Applications/}
         echo "Installing applications to ${setup_app_dir}..."
 
-        brew cask install --appdir=$setup_app_dir ${cask_apps[@]}
+        brew install --cask --appdir=$setup_app_dir ${cask_apps[@]}
 
-        brew cask alfred link
+        brew alfred link
     else
         echo "Skipping..."
     fi
@@ -381,7 +354,7 @@ function update_mac_apps() {
         setup_app_dir=${setup_app_dir:-/Applications/}
         echo "Installing applications to ${setup_app_dir}..."
 
-        brew cask install --appdir=$setup_app_dir ${cask_apps[@]}
+        brew install --cask --appdir=$setup_app_dir ${cask_apps[@]}
 
         echo "Updating out of date casks..."
         brew upgrade --cask
