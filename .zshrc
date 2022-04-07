@@ -10,6 +10,7 @@ export ZSH=$HOME/.oh-my-zsh # Path to your oh-my-zsh installation.
 DEFAULT_USER=scott
 ZSH_CUSTOM=$HOME/.zsh_custom
 HOMEBREW_CASK_OPTS="--appdir=/Applications" # brew cask directory
+export DOCKER_DEFAULT_PLATFORM=linux/amd64
 
 # Enable plugins.
 plugins=(
@@ -20,6 +21,8 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+
+fpath+=$HOME/.zsh/pure
 
 # Custom Sources
 for file in $ZSH_CUSTOM/sourced/*; do
@@ -45,3 +48,9 @@ if ([ $? -eq 0 ]) && ([[ -e $COLORLS_PATH/tab_complete.sh ]]); then
   alias ll='colorls --group-directories-first --almost-all --long'
   alias ls='colorls'
 fi
+
+eval $(/opt/homebrew/bin/brew shellenv)
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
